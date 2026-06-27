@@ -8,8 +8,7 @@ import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import Checkout from "./pages/Checkout";
-import NotFound from "./pages/NotFound";
-
+import NotFound from "./pagesNotFound";
 function App() {
   return (
     <BrowserRouter>
