@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { FaStar } from "react-icons/fa";
+
 import api from "../../services/api";
+import { addToCart } from "../../redux/cartSlice";
+import { addToWishlist } from "../../redux/wishlistSlice";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,7 +20,7 @@ const ProductDetails = () => {
       const response = await api.get(`/products/${id}`);
       setProduct(response.data);
     } catch (error) {
-      console.log(error);
+      console.error("Failed to fetch product:", error);
     } finally {
       setLoading(false);
     }
@@ -24,6 +29,22 @@ const ProductDetails = () => {
   useEffect(() => {
     getProduct();
   }, [id]);
+
+  const handleAddToCart = () => {
+    dispatch(
+      addToCart({
+        ...product,
+        quantity,
+      })
+    );
+
+    alert("Product added to cart");
+  };
+
+  const handleWishlist = () => {
+    dispatch(addToWishlist(product));
+    alert("Product added to wishlist");
+  };
 
   if (loading) {
     return (
@@ -35,10 +56,9 @@ const ProductDetails = () => {
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-12">
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
-        {/* Product Image */}
+        {/* Image */}
 
         <div>
           <img
@@ -48,7 +68,7 @@ const ProductDetails = () => {
           />
         </div>
 
-        {/* Product Details */}
+        {/* Details */}
 
         <div>
 
@@ -77,17 +97,11 @@ const ProductDetails = () => {
           </p>
 
           <p className="mt-5">
-            <span className="font-semibold">
-              Category :
-            </span>{" "}
-            {product.category}
+            <strong>Category :</strong> {product.category}
           </p>
 
           <p className="mt-2">
-            <span className="font-semibold">
-              Stock :
-            </span>{" "}
-            {product.stock}
+            <strong>Stock :</strong> {product.stock}
           </p>
 
           {/* Quantity */}
@@ -98,7 +112,7 @@ const ProductDetails = () => {
               onClick={() =>
                 quantity > 1 && setQuantity(quantity - 1)
               }
-              className="px-4 py-2 border rounded-lg"
+              className="border px-4 py-2 rounded-lg"
             >
               -
             </button>
@@ -108,8 +122,10 @@ const ProductDetails = () => {
             </span>
 
             <button
-              onClick={() => setQuantity(quantity + 1)}
-              className="px-4 py-2 border rounded-lg"
+              onClick={() =>
+                setQuantity(quantity + 1)
+              }
+              className="border px-4 py-2 rounded-lg"
             >
               +
             </button>
@@ -118,14 +134,20 @@ const ProductDetails = () => {
 
           {/* Buttons */}
 
-          <div className="flex gap-5 mt-8">
+          <div className="flex gap-4 mt-8">
 
-            <button className="bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition">
+            <button
+              onClick={handleAddToCart}
+              className="bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600"
+            >
               Add To Cart
             </button>
 
-            <button className="border border-black px-8 py-3 rounded-lg hover:bg-black hover:text-white transition">
-              Buy Now
+            <button
+              onClick={handleWishlist}
+              className="border border-black px-8 py-3 rounded-lg hover:bg-black hover:text-white"
+            >
+              Wishlist
             </button>
 
           </div>
@@ -133,7 +155,6 @@ const ProductDetails = () => {
         </div>
 
       </div>
-
     </section>
   );
 };
