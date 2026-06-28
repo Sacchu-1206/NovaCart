@@ -6,17 +6,13 @@ import Footer from "../components/layout/Footer";
 const MainLayout = () => {
   return (
     <>
-
       <Navbar />
 
-      <main>
-
+      <main className="min-h-screen">
         <Outlet />
-
       </main>
 
       <Footer />
-
     </>
   );
 };
