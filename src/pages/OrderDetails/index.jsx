@@ -1,16 +1,31 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 
+import { updateOrderStatus } from "../../redux/orderSlice";
 import OrderTimeline from "../../components/order/OrderTimeline";
+import toast from "react-hot-toast";
 
 const OrderDetails = () => {
   const { orderId } = useParams();
+
+  const dispatch = useDispatch();
 
   const orders = useSelector((state) => state.orders.orders);
 
   const order = orders.find(
     (item) => item.orderId === orderId
   );
+
+  const handleCancelOrder = () => {
+  dispatch(
+    updateOrderStatus({
+      orderId: order.orderId,
+      status: "Cancelled",
+    })
+  );
+
+  toast.success("Order cancelled successfully.");
+};
 
   if (!order) {
     return (
@@ -61,7 +76,13 @@ const OrderDetails = () => {
             <p className="mt-2">
               <strong>Status :</strong> {order.status}
             </p>
-
+              
+              {order.status === "Order Placed" && (
+              <button onClick={handleCancelOrder}
+                className="mt-6 bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg transition"
+                >
+                Cancel Order </button>
+                )}
             <p className="mt-2">
               <strong>Payment :</strong> {order.paymentStatus}
             </p>
