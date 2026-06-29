@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import {
   removeFromWishlist,
@@ -17,13 +18,15 @@ const Wishlist = () => {
   );
 
   const handleAddToCart = (item) => {
-    dispatch(
-      addToCart({
-        ...item,
-        quantity: 1,
-      })
-    );
-  };
+  dispatch(
+    addToCart({
+      ...item,
+      quantity: 1,
+    })
+  );
+
+  toast.success("Product added to cart");
+};
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-12">
@@ -90,9 +93,11 @@ const Wishlist = () => {
                   </button>
 
                   <button
-                    onClick={() =>
-                      dispatch(removeFromWishlist(item.id))
-                    }
+                   onClick={() => {
+                                   dispatch(removeFromWishlist(item.id));
+
+                                   toast.success("Product removed from wishlist");
+                                 }}
                     className="flex-1 border border-red-500 text-red-500 py-3 rounded-lg hover:bg-red-500 hover:text-white"
                   >
                     Remove

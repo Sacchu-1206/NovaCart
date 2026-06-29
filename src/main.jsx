@@ -8,12 +8,19 @@ import { store } from "./redux/store";
 
 import "./index.css";
 
+import { Toaster } from "react-hot-toast";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      
-        <App />
-      
-    </Provider>
+
+    <App />
+
+    <Toaster
+      position="top-right"
+      reverseOrder={false}
+    />
+
+</Provider>
   </React.StrictMode>
 );

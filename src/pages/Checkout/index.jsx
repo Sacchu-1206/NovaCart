@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { placeOrder } from "../../redux/orderSlice";
 import { clearCart } from "../../redux/cartSlice";
 
+import toast from "react-hot-toast";
+
 const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,12 +42,12 @@ const Checkout = () => {
       !formData.phone ||
       !formData.address
     ) {
-      alert("Please fill all details.");
+      toast.error("Please fill all billing details.");
       return;
     }
 
     if (cartItems.length === 0) {
-      alert("Your cart is empty.");
+     toast.error("Your cart is empty.");
       return;
     }
 
@@ -73,14 +75,16 @@ const Checkout = () => {
       status: "Order Placed",
     };
 
-    dispatch(placeOrder(order));
+       dispatch(placeOrder(order));
+ 
+       dispatch(clearCart());
 
-    dispatch(clearCart());
+       toast.success("🎉 Order placed successfully!");
 
-    alert("Order Placed Successfully!");
-
-    navigate("/my-orders");
-  };
+       setTimeout(() => {
+       navigate("/my-orders");
+      }, 1200);
+};
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-12">

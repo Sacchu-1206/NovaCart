@@ -7,6 +7,8 @@ import api from "../../services/api";
 import { addToCart } from "../../redux/cartSlice";
 import { addToWishlist } from "../../redux/wishlistSlice";
 
+import toast from "react-hot-toast";
+
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -38,12 +40,12 @@ const ProductDetails = () => {
       })
     );
 
-    alert("Product added to cart");
+      toast.success("Product added to cart");
   };
 
   const handleWishlist = () => {
     dispatch(addToWishlist(product));
-    alert("Product added to wishlist");
+    toast.success("Product added to wishlist");
   };
 
   if (loading) {
