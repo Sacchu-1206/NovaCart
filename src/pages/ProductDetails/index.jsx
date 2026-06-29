@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FaStar } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 import api from "../../services/api";
 import { addToCart } from "../../redux/cartSlice";
 import { addToWishlist } from "../../redux/wishlistSlice";
-
-import toast from "react-hot-toast";
+import SkeletonCard from "../../components/common/SkeletonCard";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState(null);
+  const [selectedImage, setSelectedImage] = useState("");
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
 
@@ -21,6 +22,8 @@ const ProductDetails = () => {
     try {
       const response = await api.get(`/products/${id}`);
       setProduct(response.data);
+
+      setSelectedImage(response.data.thumbnail);
     } catch (error) {
       console.error("Failed to fetch product:", error);
     } finally {
@@ -48,13 +51,13 @@ const ProductDetails = () => {
     toast.success("Product added to wishlist");
   };
 
-  if (loading) {
-    return (
-      <h2 className="text-center text-3xl py-20">
-        Loading Product...
-      </h2>
-    );
-  }
+ if (loading) {
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-12">
+      <SkeletonCard />
+    </section>
+  );
+}
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-12">
@@ -63,12 +66,38 @@ const ProductDetails = () => {
         {/* Image */}
 
         <div>
-          <img
-            src={product.thumbnail}
-            alt={product.title}
-            className="w-full rounded-2xl shadow-lg"
-          />
-        </div>
+
+  {/* Main Image */}
+
+  <img
+    src={selectedImage}
+    alt={product.title}
+    className="w-full h-[450px] object-contain bg-white rounded-2xl shadow-lg p-6"
+  />
+
+  {/* Main Image  */}
+
+  <div className="flex gap-4 mt-6 flex-wrap">
+
+    {product.images.map((image, index) => (
+
+      <img
+        key={index}
+        src={image}
+        alt={`Product ${index + 1}`}
+        onClick={() => setSelectedImage(image)}
+        className={`w-24 h-24 object-cover rounded-xl border-2 cursor-pointer transition ${
+          selectedImage === image
+            ? "border-orange-500"
+            : "border-gray-200 hover:border-orange-400"
+        }`}
+      />
+
+    ))}
+
+  </div>
+
+</div>
 
         {/* Details */}
 
