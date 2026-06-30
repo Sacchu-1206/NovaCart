@@ -3,6 +3,9 @@
 A modern and responsive React.js E-Commerce application built with Redux Toolkit and LocalStorage. NovaCart provides a smooth shopping experience where users can browse products, manage their cart and wishlist, place orders, and track their order history.
 
 ---
+## 🌐 Live Demo
+
+👉 https://nova-cart-flame.vercel.app/
 
 ## ✨ Features
 
