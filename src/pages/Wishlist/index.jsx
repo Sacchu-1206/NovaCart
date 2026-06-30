@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 import {
   removeFromWishlist,
@@ -80,7 +81,7 @@ const Wishlist = () => {
                 </h2>
 
                 <p className="text-2xl font-bold mt-3">
-                  ${item.price}
+                 {formatCurrency(item.price)}
                 </p>
 
                 <div className="flex gap-3 mt-6">

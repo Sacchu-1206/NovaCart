@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 const CartSummary = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -34,19 +35,19 @@ const CartSummary = () => {
 
         <div className="flex justify-between">
           <span>Subtotal</span>
-          <span>${subtotal.toFixed(2)}</span>
+          <span>{formatCurrency(subtotal)}</span>
         </div>
 
         <div className="flex justify-between">
           <span>Shipping</span>
-          <span>${shipping.toFixed(2)}</span>
+          <span>{formatCurrency(shipping)}</span>
         </div>
 
         <hr />
 
         <div className="flex justify-between text-xl font-bold">
           <span>Total</span>
-          <span>${total.toFixed(2)}</span>
+          <span>{formatCurrency(total)}</span>
         </div>
 
       </div>

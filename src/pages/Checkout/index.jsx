@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { placeOrder } from "../../redux/orderSlice";
 import { clearCart } from "../../redux/cartSlice";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 import toast from "react-hot-toast";
 
@@ -162,19 +163,19 @@ const Checkout = () => {
 
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>{formatCurrency(subtotal)}</span>
             </div>
 
             <div className="flex justify-between">
               <span>Shipping</span>
-              <span>${shipping.toFixed(2)}</span>
+              <span>{formatCurrency(shipping)}</span>
             </div>
 
             <hr />
 
             <div className="flex justify-between text-xl font-bold">
               <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+              <span>{formatCurrency(total)}</span>
             </div>
 
           </div>

@@ -8,6 +8,7 @@ import api from "../../services/api";
 import { addToCart } from "../../redux/cartSlice";
 import { addToWishlist } from "../../redux/wishlistSlice";
 import SkeletonCard from "../../components/common/SkeletonCard";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -120,7 +121,7 @@ const ProductDetails = () => {
           </div>
 
           <h2 className="text-3xl font-bold mt-6">
-            ${product.price}
+            {formatCurrency(product.price)}
           </h2>
 
           <p className="text-gray-600 mt-6 leading-7">

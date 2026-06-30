@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaHeart, FaStar } from "react-icons/fa";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 const ProductCard = ({ product }) => {
   const originalPrice = Math.round(
@@ -66,11 +67,11 @@ const ProductCard = ({ product }) => {
         <div className="flex items-center gap-3 mt-4">
 
           <span className="text-2xl font-bold">
-            ${product.price}
+           {formatCurrency(product.price)}
           </span>
 
           <span className="text-gray-400 line-through">
-            ${originalPrice}
+           {formatCurrency(originalPrice)}
           </span>
 
         </div>

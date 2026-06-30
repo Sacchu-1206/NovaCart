@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import api from "../../services/api";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 const TrendingProducts = () => {
   const [products, setProducts] = useState([]);
@@ -75,7 +76,7 @@ const TrendingProducts = () => {
               </p>
 
               <p className="text-2xl font-bold mt-3">
-                ${product.price}
+                 {formatCurrency(product.price)}
               </p>
 
             </div>

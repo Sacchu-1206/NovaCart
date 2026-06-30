@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import { updateOrderStatus } from "../../redux/orderSlice";
 import OrderTimeline from "../../components/order/OrderTimeline";
-import toast from "react-hot-toast";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 const OrderDetails = () => {
   const { orderId } = useParams();
@@ -88,8 +89,8 @@ const OrderDetails = () => {
             </p>
 
             <p className="mt-2">
-              <strong>Total :</strong> $
-              {order.total.toFixed(2)}
+              <strong>Total :</strong>
+              {formatCurrency(order.total)}
             </p>
 
           </div>
@@ -171,8 +172,7 @@ const OrderDetails = () => {
                 </p>
 
                 <p className="font-bold mt-2">
-                  $
-                  {(product.price * product.quantity).toFixed(2)}
+                  {formatCurrency(product.price * product.quantity)}
                 </p>
 
               </div>

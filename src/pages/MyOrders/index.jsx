@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 const MyOrders = () => {
   const orders = useSelector((state) => state.orders.orders);
@@ -59,8 +60,8 @@ const MyOrders = () => {
                   </p>
 
                   <p className="mt-2">
-                    <strong>Total :</strong> $
-                    {order.total.toFixed(2)}
+                    <strong>Total :</strong> 
+                    {formatCurrency(order.total)}
                   </p>
 
                 </div>

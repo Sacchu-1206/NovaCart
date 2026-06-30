@@ -4,6 +4,7 @@ import {
   decreaseQuantity,
   removeFromCart,
 } from "../../redux/cartSlice";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const CartItem = ({ item }) => {
           </p>
 
           <h3 className="text-2xl font-bold mt-3">
-            ${item.price}
+           {formatCurrency(item.price)}
           </h3>
 
         </div>
@@ -68,7 +69,7 @@ const CartItem = ({ item }) => {
       <div>
 
         <h2 className="text-2xl font-bold">
-          ${(item.price * item.quantity).toFixed(2)}
+         {formatCurrency(item.price * item.quantity)}
         </h2>
 
       </div>
